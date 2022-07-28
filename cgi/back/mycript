@@ -1,0 +1,12 @@
+#!/bin/sh
+
+eval `/home/qqyk321/work/thttpd/www/script/proccgi.sh $*`
+
+echo Content-type: text/plain
+
+echo
+
+echo $FORM_username
+
+echo $FORM_password
+

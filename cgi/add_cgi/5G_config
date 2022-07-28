@@ -1,0 +1,4 @@
+USB_serial=ttyUSB2
+USB_name=enp0s20u2
+NameOk=OK
+SerialOk=OK

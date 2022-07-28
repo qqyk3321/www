@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <title>5G Basic html</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <script type="text/javascript" src="cgi/5G_basic.cgi"></script>
+    <script type="text/javascript" src="lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="lib/overlib.js"></script>
+  	<script type="text/javascript">
+  	
+		$(document).ready(function()
+		{
+			$("#USB_name").val(USB_name);
+			$("#NameOk").val(NameOk);
+			$("#USB_ip").val(USB_ip);
+			$("#USB_mac").val(USB_mac);
+			$("#USB_driver").val(USB_driver);
+			$("#USB_serial").val(USB_serial);
+			$("#SerialOk").val(SerialOk);
+			$("#USB_maker").val(USB_maker);
+			$("#USB_productor").val(USB_productor);
+			
+		});
+		
+		function submit()
+		{
+			var update = confirm("更新5G网卡名称!!!\n是否继续?");
+			if( update )
+			{
+				$("#doaction").val("apply");
+				$("#formtab").submit();
+			}
+		}
+	</script>
+    
+    
+  </head>
+
+  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> 
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="content">
+        <div class="header">
+    				<h1 class="page-title">5G基本信息</h1>
+        </div>
+			<div class="container-fluid">
+        <div class="row-fluid">
+        	<div class="well">
+        	<form id="formtab" method="post" action="cgi/5G_basic_apply.cgi">
+					<input type="hidden" id="doaction" name="doaction" value="apply">
+	        	<table  border="0" cellpadding="0" cellspacing="0"> 
+	        		<tr><th width="200">&nbsp;</th></tr>
+	        		<tr>
+						    <th
+						        onMouseOver="return overlib('设置网卡名称');"
+						        onMouseOut="return nd();">
+						         5G网卡名称:
+						    </th>
+	    					<td><input id="USB_name" name="USB_name" type="text" class="input-xlarge"></td>
+						    <td><label><p class="font-size:10px;">&ensp;&ensp;注意：设置当前5G网卡名称ifconfig -a 可以查询,永久保存。</p></label></td>
+	    				</tr>
+	    				<tr><th>&nbsp;</th></tr>
+					<tr>
+						    <th 
+						        onMouseOver="return overlib('网卡有效检测');"
+						        onMouseOut="return nd();">
+						        5G网卡名称有效检测:
+						    </th>
+	    					<td><input id="NameOk" name="NameOk" type="text" readonly="readonly" class="input-xlarge"></td>
+							<td><label><p class="font-size:10px;">&ensp;&ensp;</p></label></td>
+	    				</tr>
+	    				<tr><th >&nbsp;</th></tr>
+	        		<tr>
+						    <th 
+						        onMouseOver="return overlib('查询网卡ip');"
+						        onMouseOut="return nd();">
+						        5G网卡IP:
+						    </th>
+	    					<td><input id="USB_ip" name="USB_ip" type="text" readonly="readonly" class="input-xlarge"></td>
+							<td><label><p class="font-size:10px;">&ensp;&ensp;注意：暂未获取IP：可能是未拨号，SIM卡问题，信号问题。</p></label></td>
+	    				</tr>
+	    				<tr><th >&nbsp;</th></tr>
+					<tr>
+						    <th 
+						        onMouseOver="return overlib('查询网卡mac');"
+						        onMouseOut="return nd();">
+						        5G网卡mac:
+						    </th>
+	    					<td><input id="USB_mac" name="USB_mac" type="text" readonly="readonly" class="input-xlarge"></td>
+	    				</tr>
+	    				<tr><th >&nbsp;</th></tr>
+					<tr>
+						    <th 
+						        onMouseOver="return overlib('查询网卡驱动类型');"
+						        onMouseOut="return nd();">
+						        5G网卡驱动类型:
+						    </th>
+	    					<td><input id="USB_driver" name="USB_driver" type="text" readonly="readonly" class="input-xlarge"></td>
+	    				</tr>
+	    				<tr><th >&nbsp;</th></tr>
+					<tr>
+						    <th 
+						        onMouseOver="return overlib('查询网卡AT串口');"
+						        onMouseOut="return nd();">
+						        5G网卡AT串口:
+						    </th>
+	    					<td><input id="USB_serial" name="USB_serial" type="text"  class="input-xlarge"></td>
+							<td><label><p class="font-size:10px;">&ensp;&ensp;注意：设置如ttyUSB2</p></label></td>
+	    				</tr>
+	    				<tr><th >&nbsp;</th></tr>
+					<tr>
+						    <th 
+						        onMouseOver="return overlib('查询网卡型号');"
+						        onMouseOut="return nd();">
+						        5G网卡AT串口检测:
+						    </th>
+	    					<td><input id="SerialOk" name="SerialOk" type="text" readonly="readonly" class="input-xlarge"></td>
+	    				</tr>
+	    				<tr><th >&nbsp;</th></tr>
+					<tr>
+						    <th 
+						        onMouseOver="return overlib('查询网卡型号');"
+						        onMouseOut="return nd();">
+						        5G网卡型号:
+						    </th>
+	    					<td><input id="USB_maker" name="USB_maker" type="text" readonly="readonly" class="input-xlarge"></td>
+							<td><label><p class="font-size:10px;">&ensp;&ensp;注意：目前只有Quectel下的RM500U，RM500Q，RG200U</p></label></td>
+						</tr>
+	    				<tr><th >&nbsp;</th></tr>
+					<tr>
+						    <th 
+						        onMouseOver="return overlib('查询网卡制造商');"
+						        onMouseOut="return nd();">
+						        5G网卡制造商:
+						    </th>
+	    					
+							<td><input id="USB_productor" name="USB_productor" type="text" readonly="readonly" class="input-xlarge"></td>
+							<td><label><p class="font-size:10px;">&ensp;&ensp;注意：目前只有Quectel</p></label></td>
+						</tr>
+	    				
+					
+	        	</table>
+					</form>
+					</div>
+					<hr>
+					
+					<button class="btn btn-primary" onclick="submit();">检测&设置</button>
+					<button class="btn btn-primary" onclick="javascript:window.location.reload();" >还原</button>
+				</div>
+			</div>
+    </div>
+  </body>
+</html>
+
+

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+eval `/home/qqyk321/work/thttpd/www/cgi/proccgi.sh $HTTP_COOKIE`
+SESSION=$FORM_SESSION
+SESSION=${SESSION:0:8}
+SESSIONLEN=${#SESSION}
+SESSIONDIR=/run/www
+
+#logger "COOKIE:$HTTP_COOKIE"
+
+LOGIN="1"
+
+if [ "$SESSIONLEN" != "8" ] || [ ! -f $SESSIONDIR/$SESSION ] ; then
+	LOGIN="0"
+else
+	CURTIME=`date +%s`
+	SESTIME=`date +%s -r $SESSIONDIR/$SESSION`
+	CHECK=`expr "$CURTIME" - "$SESTIME" '>' 600`
+	[ "$CHECK" != "0" ] && LOGIN="0"
+fi
+
+if [ "$LOGIN" == "0" ] ; then
+#echo 'var login="0";'
+echo -e 'top.location = "../sign-in.html"'
+exit 0;
+fi
+
+touch $SESSIONDIR/$SESSION
+echo 'var login="1";'

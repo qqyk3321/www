@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <title>AS Version html</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+	<script type="text/javascript" src="cgi/version.cgi"></script>
+	<script type="text/javascript" src="lib/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="lib/overlib.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function()
+					{
+					$("#htmlversion").val(htmlversion);
+					$("#wapiversion").val(wapiversion);
+					});
+    </script>
+    </style>
+  </head>
+
+  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> 
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="content">
+        <div class="header">
+    				<h1 class="page-title">版本信息</h1>
+        </div>
+			<div class="container-fluid">
+        <div class="row-fluid">
+					<div class="well">
+					<table  border="0" cellpadding="0" cellspacing="0">		
+					<tr><th width="150">&nbsp;</th></tr>
+					<tr>				
+					<th>网站版本:</th>
+					<td><input id="htmlversion" name="htmlversion" type="text" style="border:none;border-bottom:1px solid #ccc;background-color:#ffffff;box-shadow:inset 0 0 0 rgb(0 0 0 / 0%)" readonly="readonly" value="V0.0.1"></td>
+					</tr>	
+					<tr><th>&nbsp;</th></tr>		
+					<tr>		
+					<th>WAPI鉴权程序:</th>
+					<td><input id="wapiversion" name="wapiversion" type="text" readonly="readonly" style="border:none;border-bottom:1px solid #ccc;background-color:#ffffff;box-shadow:inset 0 0 0 rgb(0 0 0 / 0%)" value="V0.0.1"></td>
+					</tr>
+					</tr>	
+					<tr><th>&nbsp;</th></tr>		
+					<tr>		
+					<th>证书授权数量:</th>
+					<td><input id="wapilic" name="wapilic" type="text" readonly="readonly" style="border:none;border-bottom:1px solid #ccc;background-color:#ffffff;box-shadow:inset 0 0 0 rgb(0 0 0 / 0%)" value="100个"></td>
+					</tr>
+					</table>
+					</div>
+			</div></div>
+    </div>
+  </body>
+</html>
+
+

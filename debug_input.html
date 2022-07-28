@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <title>5G Basic html</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <script type="text/javascript" src="cgi/5G_basic.cgi"></script>
+    <script type="text/javascript" src="lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="lib/overlib.js"></script>
+  	<script type="text/javascript">
+  	
+		$(document).ready(function()
+		{
+			$("#USB_name").val(USB_name);
+			$("#NameOk").val(NameOk);
+			$("#USB_ip").val(USB_ip);
+			$("#USB_mac").val(USB_mac);
+			$("#USB_driver").val(USB_driver);
+			$("#USB_serial").val(USB_serial);
+			$("#SerialOk").val(SerialOk);
+			$("#USB_maker").val(USB_maker);
+			$("#USB_productor").val(USB_productor);
+			
+		});
+		
+		function submit()
+		{
+			
+			
+			$("#doaction").val("apply");
+			$("#formtab").submit();
+			
+		}
+	</script>
+    
+    
+  </head>
+
+  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> 
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="content">
+        <div class="header">
+    				<h1 class="page-title">5G基本信息</h1>
+        </div>
+			<div class="container-fluid">
+        <div class="row-fluid">
+        	<div class="well">
+        	<form id="formtab" method="post" action="cgi/debug.cgi"  target="debug_main">
+					<input type="hidden" id="doaction" name="doaction" value="apply">
+	        	<table  border="0" cellpadding="0" cellspacing="0"> 
+	        		<tr><th width="200">&nbsp;</th></tr>
+	        		<tr>
+						    <th
+						        onMouseOver="return overlib('输入shell命令');"
+						        onMouseOut="return nd();">
+						         shell 命令:
+						    </th>
+	    					<td><input id="debug_cmd" name="debug_cmd" type="text" class="input-xlarge"></td>
+						    <td><label><p class="font-size:10px;">&ensp;&ensp;注意：设置当前5G网卡名称ifconfig -a 可以查询,永久保存。</p></label></td>
+	    				</tr>
+	    				<tr><th>&nbsp;</th></tr>
+					
+	    				
+					
+	        	</table>
+					</form>
+					</div>
+					<hr>
+					
+					<button class="btn btn-primary" onclick="submit();">检测&设置</button>
+					
+				</div>
+			</div>
+    </div>
+  </body>
+</html>
+
+

@@ -1,0 +1,27 @@
+#!/bin/sh
+#export PATH=/home/qqyk321/work/thttpd/www/cgi/:$PATH
+
+./buildenv
+eval `/home/qqyk321/work/thttpd/www/cgi/proccgi.sh $*`
+
+
+#nvram commit
+#php -f login.php
+
+
+
+
+USERMD5=`cat md5_check`
+
+
+
+
+echo -e "Content-type: text/plain"
+echo 
+
+echo -e "USERMD5=$USERMD5"
+echo -e "FORM_pass=$FORM_pass"
+echo -e "FORM_USER=$FORM_user"
+echo -e "`pwd`"
+
+./tt.sh

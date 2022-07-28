@@ -1,0 +1,57 @@
+#!/bin/sh
+
+while read line;do
+    eval "$line"
+done < 5G_config
+
+
+echo "var USB_name=\"${USB_name}\";"
+echo "var NameOk=\"${NameOk}\";"
+
+echo "var USB_serial=\"${USB_serial}\";"
+echo "var SerialOk=\"${SerialOk}\";"
+
+echo 'var USB_productor="Quectel";'
+
+
+
+
+if [ "`lsusb|grep 0800`" = "" ] && [ "`lsusb|grep 0900`" = "" ];then
+
+        echo 'var USB_ip="5G网卡未插入";'
+        echo 'var USB_mac="5G网卡未插入";'
+        echo 'var USB_driver="5G网卡未插入";'
+        
+        echo 'var USB_maker="5G网卡未插入";'
+        exit 0
+fi
+
+if [ "`ifconfig -a|grep ${USB_name}`" = ""  ];then
+
+        echo 'var USB_ip="5G网卡名称错误";'
+        echo 'var USB_mac="5G网卡名称错误";'
+        echo 'var USB_driver="5G网卡名称错误";'
+     
+        echo 'var USB_maker="5G网卡名称错误";'
+        exit 0
+fi
+
+USB_ip="`ifconfig ${USB_name}|grep "inet "|awk '{print $2}'|awk -F: '{print $2 }'`"
+if [ -z $USB_ip ];then
+echo "var USB_ip=\"暂未获取IP\";"
+else
+echo "var USB_ip=\"${USB_ip}\";"
+
+#echo "var USB_ip=\"192.168.1.1\";"
+fi
+
+USB_mac=`cat /sys/class/net/${USB_name}/address`
+echo "var USB_mac=\"${USB_mac}\";"
+
+USB_driver=`ethtool -i ${USB_name}|grep driver|awk  '{print $2}'`
+echo "var USB_driver=\"${USB_driver}\";"
+
+
+USB_maker=`cat /sys/kernel/debug/usb/devices | grep Manufacturer=Quectel -B4 -A7 |grep Product|cut -d = -f 2`
+echo "var USB_maker=\"${USB_maker}\";"
+

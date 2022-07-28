@@ -1,0 +1,54 @@
+#!/bin/sh
+
+PageStart()
+{
+echo -e "Content-type: text/html\n"
+cat << EOF
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/theme.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.css">
+  </head>
+
+  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> 
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="content" style="text-align: center">
+    <br/><br/>
+EOF
+}
+
+PageEnd()
+{
+if [ -z "$HTTP_REFERER" ];then
+	HTTP_REFERER="./"
+fi
+
+cat << EOF
+			<br/><br/>
+			<input class="btn btn-primary" type="button" value="返回" onclick="window.location='$HTTP_REFERER'"><br/>
+		</div>
+</body>
+</html>
+EOF
+}
+
+if [ "$1" = "head" ] ; then
+PageStart
+elif [ "$1" = "tail" ] ; then
+PageEnd
+fi
+
+
+
