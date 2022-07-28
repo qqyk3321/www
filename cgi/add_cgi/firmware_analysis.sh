@@ -7,7 +7,7 @@
 ####列表：["AT_CCID","AT_
 ####
 ####
-var_list='ATI  AT_CLCK AT_QINISTAT AT_QSIMDET_enable AT_QSIMDET_insert_level AT_QUIMSLOT'
+var_list='ATI_manufacturer  ATI_model ATI_firmware_revision AT_GSN AT_QCFG_usbnet AT_QCFG_nat AT_QCFG_usbcfg_port AT_QCFG_usbcfg_vid AT_QCFG_usbcfg_pid'
 ###读入config文件
 while read line;do
     eval "$line"
@@ -32,7 +32,7 @@ done
 }
 
 ####检测串口设置是否正确(检查配置文件，检查是否包含串口设备)
-if [ "${SerialOk}" != "OK" ] || [ "`ls $uart`" == ""  ];then
+if [ "${SerialOk}" != "OK" ] || [ ! -c "${uart}"  ];then
 	#put all var "串口设置失败”
 	for i in ${var_list}
 	do
@@ -56,9 +56,9 @@ fi
 
 #### 检测产品固件版本号
 uart "ATI"
-echo "$at_log" > at_log_ati
+#echo "$at_log" > at_log_ati
 ATI="`echo "$at_log"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'`"
-echo "$ATI" >ATI
+#echo "$ATI" >ATI
 ATI_manufacturer="`echo "$ATI"|sed -n '1,1p'`"
 ATI_model="`echo "$ATI"|sed -n '2,2p'`"
 ATI_firmware_revision="`echo "$ATI"|grep "Revision:"|cut -d : -f 2`"
@@ -68,9 +68,9 @@ echo 'var ATI_model="'${ATI_model}'";'
 echo 'var ATI_firmware_revision="'${ATI_firmware_revision}'";'
 #### 检测IMEI
 uart "AT+GSN"
-echo "$at_log" > at_log_gsn
+#echo "$at_log" > at_log_gsn
 AT_GSN="`echo "$at_log"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|sed -n '1,1p'`"
-echo "${AT_GSN}" > AT_GSN
+#echo "${AT_GSN}" > AT_GSN
 echo var AT_GSN=\"${AT_GSN}\"\;
 ####检测网卡类型及驱动方式 
 uart "at+qcfg=\"usbnet\""
@@ -86,9 +86,9 @@ else
 fi
 ####检测网卡拨号模式
 uart "at+qcfg=\"nat\""
-echo "${at_log}" >at_log_nat
+#echo "${at_log}" >at_log_nat
 re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+QCFG:"|cut -d : -f 2|cut -d , -f 2`"
-echo "${re}" >RE
+#echo "${re}" >RE
 if [ "${re}" == "0" ];then
     echo "var AT_QCFG_nat=\"网卡模式\";"
 elif [ "${re}" == "1" ];then
