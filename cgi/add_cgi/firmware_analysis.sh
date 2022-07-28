@@ -57,7 +57,7 @@ fi
 #### 检测产品固件版本号
 uart "ATI"
 echo "$at_log" > at_log_ati
-ATI="`echo "$at_log"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'`"
+ATI="`echo "$at_log"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'`"
 echo "$ATI" >ATI
 ATI_manufacturer="`echo "$ATI"|sed -n '1,1p'`"
 ATI_model="`echo "$ATI"|sed -n '2,2p'`"
@@ -74,7 +74,7 @@ echo "${AT_GSN}" > AT_GSN
 echo var AT_GSN=\"${AT_GSN}\"\;
 ####检测网卡类型及驱动方式 
 uart "at+qcfg=\"usbnet\""
-re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|grep "+QCFG:"|cut -d : -f 2|cut -d , -f 2`"
+re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+QCFG:"|cut -d : -f 2|cut -d , -f 2`"
 if [ "${re}" == "1" ];then
 	echo "var AT_QCFG_usbnet=\"ECM\";"
 elif [ "${re}" == "3" ];then
@@ -87,7 +87,7 @@ fi
 ####检测网卡拨号模式
 uart "at+qcfg=\"nat\""
 echo "${at_log}" >at_log_nat
-re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|grep "+QCFG:"|cut -d : -f 2|cut -d , -f 2`"
+re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+QCFG:"|cut -d : -f 2|cut -d , -f 2`"
 echo "${re}" >RE
 if [ "${re}" == "0" ];then
     echo "var AT_QCFG_nat=\"网卡模式\";"
@@ -100,7 +100,7 @@ else
 fi
 ####检查USB，VID，PID，开启端口
 uart "at+qcfg=\"usbcfg\""
-re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|grep "+QCFG:"|cut -d : -f 2`"
+re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+QCFG:"|cut -d : -f 2`"
 ######修改环境变量分隔符
 OLD_IFS="$IFS"
 IFS=","

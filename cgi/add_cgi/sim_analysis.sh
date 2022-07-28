@@ -64,13 +64,13 @@ if [ "${re}" != ""  ];then
 	done
 	exit 0
 fi
-AT_CCID="`echo "$at_log"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|grep "+CCID:"|cut -d : -f 2`"
+AT_CCID="`echo "$at_log"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+CCID:"|cut -d : -f 2`"
 echo 'var AT_CCID="'${AT_CCID}'";'
 #### 检测IMIS
 uart "at+cimi"
 
 echo $at_log > at_log_cimi
-AT_CIMI="`echo "$at_log"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|sed -n '1,1p'`"
+AT_CIMI="`echo "$at_log"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|sed -n '1,1p'`"
 echo $AT_CIMI > AT_CIMI
 echo "var AT_SIMI=\"${AT_CIMI}\";"
 ####锁定问题 
@@ -82,7 +82,7 @@ else
 fi
 ####SIM 卡准备情况
 uart "at+qinistat"
-re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|grep "+QINISTAT:"|cut -d : -f 2`"
+re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+QINISTAT:"|cut -d : -f 2`"
 echo -e "$re" > at_log
 if [ "${re}" == "0" ];then
 	echo var AT_QINISTAT=\"未初始状态\"\;
@@ -99,7 +99,7 @@ else
 fi
 ####SIm卡卡槽检测
 uart "AT+QSIMDET?"
-re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|grep "+QSIMDET:"|cut -d : -f 2`"
+re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+QSIMDET:"|cut -d : -f 2`"
 if [ "${re}" == "0,0" ];then
 	echo "var AT_QSIMDET_enable=\"禁用\";"
 	echo "var AT_QSIMDET_insert_level=\"低电平\";"
@@ -121,7 +121,7 @@ else
 fi
 ####检查物理卡槽未知
 uart "AT+QUIMSLOT?"
-re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|tr -s '\n'|sed 's/\r$//'|grep "+QUIMSLOT:"|cut -d : -f 2`"
+re="`echo "${at_log}"|awk '{gsub(/ /,"")}1'|sed 's/\r$//'|sed '/^$/d'|grep "+QUIMSLOT:"|cut -d : -f 2`"
 if [ "${re}" == "1" ];then
 	echo "var AT_QUIMSLOT=\"卡槽1\";"
 elif [ "${re}" == "2" ];then
